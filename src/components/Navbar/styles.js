@@ -70,19 +70,28 @@ background-clip: text;
 `;
 
 export const StylesProfileDetails = Styled.div`
-display: flex;
-align-items:center;
+cursor: pointer;
 border-radius: 23px;
 border: 1px solid ${BORDER_COLOR_GREY};
 background: ${BACKGROUND_COLOR_GREY};
 box-shadow: 0px 0px 4px 1px rgba(0, 0, 0, 0.30);
 padding: 7px 9px 7px 9px;
 height: fit-content;
+
 p {
   margin: 0 5px 0px 5px;
 }
+ img{
+  margin-bottom:10px;
 
-img{
-  cursor: pointer;
+ }
+.logout{
+  border-top: 2px solid ${BORDER_COLOR_GREY};
+  text-align:right;
+  padding: 3px;
+
+  &:hover{
+    transform:scale(1.1);
+  }
 }
 `;

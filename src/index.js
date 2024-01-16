@@ -2,14 +2,25 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import reportWebVitals from "./reportWebVitals";
 import Home from "./components/Home";
+import { MetaMaskProvider } from "@metamask/sdk-react";
 import "./index.css";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   // <React.StrictMode>
-  <div className="wrapper_container">
-    <Home />
-  </div>
+  <MetaMaskProvider
+    debug={false}
+    sdkOptions={{
+      dappMetadata: {
+        name: "Example React Dapp",
+        url: window.location.host
+      }
+    }}
+  >
+    <div className="wrapper_container">
+      <Home />
+    </div>
+  </MetaMaskProvider>
   // </React.StrictMode>
 );
 
