@@ -11,7 +11,7 @@ import {
 import AppImage from "src/assets/images/app-image.svg";
 import AddIcon from "src/assets/images/add.svg";
 
-const AppDetails = ({ appStatus }) => {
+const AppDetails = ({ appStatus, handelPopUp }) => {
   return (
     <StylesAppDetailsWrapper>
       <StylesAppImage>
@@ -26,7 +26,11 @@ const AppDetails = ({ appStatus }) => {
               Claimed
             </div>
           ) : (
-            <StylesButton>
+            <StylesButton
+              onClick={() => {
+                handelPopUp(true);
+              }}
+            >
               <img src={AddIcon} alt="app-image" />
               Get Tokens
             </StylesButton>
