@@ -6,7 +6,7 @@ import styled from "styled-components";
 
 export const StylesAvailableApps = styled.div`
   display: grid;
-  grid-template-columns: repeat(6, 1fr);
+  grid-template-columns: repeat(6, 142px);
   gap: 15px;
   max-height: 520px;
   overflow-y: auto;

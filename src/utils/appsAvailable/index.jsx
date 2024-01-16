@@ -19,7 +19,11 @@ const AppsAvailable = () => {
 
       <StylesAvailableApps>
         {ArrayLength.map((app, uniqueItem) => {
-          return <AppDetails app={app} key={uniqueItem} appStatus={appStatus} />;
+          return (
+            <div key={uniqueItem}>
+              <AppDetails app={app} appStatus={appStatus} />
+            </div>
+          );
         })}
       </StylesAvailableApps>
     </StylesAppsClaimedWrapper>

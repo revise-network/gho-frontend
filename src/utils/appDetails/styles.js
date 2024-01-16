@@ -9,7 +9,7 @@ import Styled from "styled-components";
 export const StylesAppDetailsWrapper = Styled.div`
 display:flex;
 flex-direction:column;
-width: 145px;
+width: 142px;
 height: 180px;
 align-items:center;
 border-radius: 15px;

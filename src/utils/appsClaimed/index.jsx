@@ -19,7 +19,7 @@ const AppsClaimed = () => {
       <StylesClaimedDetails>
         {ArrayLength.map((app, uniqueApp) => {
           return (
-            <div key={uniqueApp}>
+            <div key={uniqueApp} style={{ marginBottom: "7px" }}>
               <AppDetails app={app} appStatus={appStatus} />
             </div>
           );

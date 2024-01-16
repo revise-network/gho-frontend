@@ -12,6 +12,7 @@ export const StylesHeaderWrapper = Styled.div`
 display: flex;
 justify-content:space-between;
 align-items:center;
+margin-right:10px;
 `;
 
 export const StylesHeaderText = Styled.div`
@@ -77,8 +78,11 @@ background: ${BACKGROUND_COLOR_GREY};
 box-shadow: 0px 0px 4px 1px rgba(0, 0, 0, 0.30);
 padding: 7px 9px 7px 9px;
 height: fit-content;
-p{
+p {
   margin: 0 5px 0px 5px;
 }
 
+img{
+  cursor: pointer;
+}
 `;

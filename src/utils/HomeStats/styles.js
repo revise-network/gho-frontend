@@ -138,12 +138,16 @@ export const StylesClaimDetailsWrapper = styled.div`
   }
 
   section {
+    position: relative;
     margin: 20px 0;
     text-align: center;
     progress {
+      position: absolute;
+      transform: translate(-50%, -50%);
+      width: 300%;
       margin-bottom: 3px;
       border-radius: 13px;
-      height: 17px;
+      height: 23px;
       background-color: ${BACKGROUND_COLOR_BLACK_3};
       border: 2px solid ${BORDER_COLOR_GREY_2};
     }
@@ -192,6 +196,7 @@ export const StylesClaimDetailsWrapper = styled.div`
         -webkit-text-fill-color: transparent;
       }
     }
+
     div {
       color: ${TEXT_COLOR_BLACK};
       font-size: 16px;
