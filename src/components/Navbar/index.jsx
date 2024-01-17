@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import SearchIcon from "src/assets/images/search.svg";
 import {
   StylesHeaderSearchWrapper,
@@ -25,7 +25,9 @@ export const Navbar = () => {
     try {
       const accounts = await sdk?.connect();
       setAccount(accounts?.[0]);
+      window.localStorage.setItem("address", accounts?.[0]);
     } catch (err) {
+      window.localStorage.clear();
       console.error(`failed to connect..`, err);
     }
   };
@@ -33,12 +35,17 @@ export const Navbar = () => {
     event.preventDefault();
     try {
       await sdk?.disconnect();
-      setAccount("");
+      window.localStorage.clear();
     } catch (err) {
+      window.localStorage.clear();
       console.error(`failed to disconnect..`, err);
     }
   };
 
+  useEffect(() => {
+    const walletAddress = window.localStorage.getItem("address");
+    setAccount(walletAddress);
+  }, [account]);
   return (
     <StylesNavbarWrapper>
       <StylesLogo>
@@ -67,7 +74,7 @@ export const Navbar = () => {
               onClick={() => setLogoutButton(!logoutButton)}
             >
               <img src={ProfileImage} alt="profile-image" />
-              <p>{account.slice(0, 3) + "....." + account.slice(-3)}</p>
+              <p>{account?.slice(0, 3) + "....." + account?.slice(-3)}</p>
               <img
                 src={More}
                 alt="profile-image"
