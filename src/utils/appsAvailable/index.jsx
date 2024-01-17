@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React from "react";
 import Header from "src/components/Navbar";
 import AppDetails from "src/utils/appDetails/index";

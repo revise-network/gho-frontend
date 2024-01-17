@@ -8,6 +8,7 @@ import PopUp from "../popUp";
 const Home = () => {
   const [popUp, setPopUp] = useState(false);
   const parentRef = useRef();
+
   const handlePopUp = () => {
     setPopUp(!popUp);
   };
