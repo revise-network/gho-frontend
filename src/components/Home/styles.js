@@ -1,8 +1,6 @@
 import styled from "styled-components";
 
-export const HomeWrapper = styled.div`
-  opacity: ${(props) => props.opacity || "1"};
-`;
+export const HomeWrapper = styled.div``;
 
 export const StylesSectionWrapper = styled.div`
   padding: 10px;
