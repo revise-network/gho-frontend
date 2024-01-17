@@ -12,20 +12,10 @@ const Home = () => {
   const handlePopUp = () => {
     setPopUp(!popUp);
   };
-  const onBlur = () => {
-    if (popUp) {
-      setPopUp(!popUp);
-    }
-  };
 
   return (
     <>
-      <HomeWrapper
-        opacity={popUp ? "0.5" : ""}
-        onClick={() => {
-          onBlur();
-        }}
-      >
+      <HomeWrapper>
         <StylesSectionWrapper>
           <Navbar />
         </StylesSectionWrapper>
@@ -39,7 +29,8 @@ const Home = () => {
           <AppsAvailable handelPopUp={handlePopUp} />
         </StylesSectionWrapper>
       </HomeWrapper>
-      {popUp && <PopUp popRef={parentRef} />}
+
+      {popUp && <PopUp popRef={parentRef} popUp={popUp} setPopUp={setPopUp} />}
     </>
   );
 };
