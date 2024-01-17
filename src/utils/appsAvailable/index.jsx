@@ -7,7 +7,7 @@ import {
 } from "src/utils/appsClaimed/styles";
 import { StylesAvailableApps } from "src/utils/appsAvailable/styles";
 
-const AppsAvailable = () => {
+const AppsAvailable = ({ handelPopUp }) => {
   const appStatus = "unclaimed";
 
   const ArrayLength = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 11];
@@ -21,7 +21,11 @@ const AppsAvailable = () => {
         {ArrayLength.map((app, uniqueItem) => {
           return (
             <div key={uniqueItem}>
-              <AppDetails app={app} appStatus={appStatus} />
+              <AppDetails
+                app={app}
+                appStatus={appStatus}
+                handelPopUp={handelPopUp}
+              />
             </div>
           );
         })}
