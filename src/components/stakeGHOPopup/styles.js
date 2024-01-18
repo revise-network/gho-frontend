@@ -22,7 +22,6 @@ export const PopUpWrapper = styled.div`
   box-shadow: 0px 0px 4px 1px rgba(0, 0, 0, 0.3);
   max-width: 492px;
   padding: 70px 29px 24px;
-  scale: 0.8;
   text-align: center;
 
   p {
