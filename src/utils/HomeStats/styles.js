@@ -150,7 +150,7 @@ export const StylesClaimDetailsWrapper = styled.div`
       display: block;
       border-radius: 13px;
       width: ${(props) => props.width};
-      background: red;
+      background: ${GRADIENT_TEXT_COLOR_GREEN};
       height: 19px;
       margin-bottom: 5px;
     }
