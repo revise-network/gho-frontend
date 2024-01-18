@@ -9,49 +9,57 @@ import StakeGHOPopup from "../stakeGHOPopup";
 const Home = () => {
   const [popUp, setPopUp] = useState(false);
   const [stakeGHOPopup, setStakeGHOPopup] = useState(false);
-  const [walletConnected, setWalletConnected] = useState(false)
+  const [walletConnected, setWalletConnected] = useState(false);
   const parentRef = useRef();
 
   useEffect(() => {
     const walletAddress = window.localStorage.getItem("address");
-    if (! walletAddress) setWalletConnected(false)
-    else setWalletConnected(true)
-  }, [])
+    if (!walletAddress) setWalletConnected(false);
+    else setWalletConnected(true);
+  }, []);
 
   const handlePopUp = () => {
     setPopUp(!popUp);
   };
+
   const handleStakeGHOPopup = () => {
     setStakeGHOPopup(!stakeGHOPopup);
   };
-  // const onBlur = () => {
-  //   if (popUp) {
-  //     setPopUp(!popUp);
-  //   }
-  // };
 
+  const dAppsAvailableSection = useRef(null);
+
+  const scrollToDAppsAvailableSection = () => {
+    dAppsAvailableSection.current.scrollIntoView();
+  };
   return (
     <>
       <HomeWrapper>
         <StylesSectionWrapper>
           <Navbar />
         </StylesSectionWrapper>
-        {!walletConnected ? (<h1 style={{textAlign: 'center'}}>Connect wallet to continue..</h1>) : (
+        {!walletConnected ? (
+          <h1 style={{ textAlign: "center" }}>Connect wallet to continue..</h1>
+        ) : (
           <>
             <StylesSectionWrapper>
-              <HomeStats handlePopUp={handleStakeGHOPopup} />
+              <HomeStats
+                handlePopUp={handleStakeGHOPopup}
+                scrollBehavior={scrollToDAppsAvailableSection}
+              />
             </StylesSectionWrapper>
             <StylesSectionWrapper>
               <AppsClaimed />
             </StylesSectionWrapper>
-            <StylesSectionWrapper>
+            <StylesSectionWrapper ref={dAppsAvailableSection}>
               <AppsAvailable handelPopUp={handlePopUp} />
             </StylesSectionWrapper>
           </>
         )}
       </HomeWrapper>
       {popUp && <PopUp popRef={parentRef} popUp={popUp} setPopUp={setPopUp} />}
-      {stakeGHOPopup && <StakeGHOPopup popRef={parentRef} />}
+      {stakeGHOPopup && (
+        <StakeGHOPopup popRef={parentRef} setStakeGHOPopup={setStakeGHOPopup} />
+      )}
     </>
   );
 };

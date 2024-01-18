@@ -14,14 +14,13 @@ import AddIcon from "src/assets/images/add.svg";
 import TimeReminder from "src/assets/images/time-reminder.svg";
 import TimeIcon from "src/assets/images/time-icon.svg";
 
-const HomeStats = ({handlePopUp}) => {
+const HomeStats = ({ handlePopUp, scrollBehavior }) => {
   const cardStatus = "available";
+  console.log(scrollBehavior);
   return (
     <StylesHomeStatsWrapper>
       <StylesLeftStats>
-        <Stats handlePopUp={() => {
-          // scroll to dapps avaiable
-        }} cardStatus={cardStatus} />
+        <Stats scrollBehavior={scrollBehavior} cardStatus={cardStatus} />
       </StylesLeftStats>
       <StylesClaimedStats>
         <ClaimedDetails />
@@ -35,16 +34,21 @@ const HomeStats = ({handlePopUp}) => {
 
 export default HomeStats;
 
-export const Stats = ({ handlePopUp, cardStatus, creditAvaiable = 0, totalStaked = 0 }) => {
-
+export const Stats = ({
+  handlePopUp,
+  cardStatus,
+  creditAvaiable = 0,
+  totalStaked = 0,
+  scrollBehavior
+}) => {
   return (
     <StylesStatsWrapper
       border_radius={cardStatus !== "available" && "0px 23px 23px 0px"}
     >
       <p>{cardStatus === "available" ? "CREDIT AVAILABLE" : "TOTAL STAKED"}</p>
       <h1>{cardStatus === "available" ? creditAvaiable : totalStaked}</h1>
-      {cardStatus === "available" ? (<p>$</p>) : (<p>GHO</p>)}
-      <div onClick={handlePopUp}>
+      {cardStatus === "available" ? <p>$</p> : <p>GHO</p>}
+      <div onClick={cardStatus === "available" ? scrollBehavior : handlePopUp}>
         {" "}
         <img src={cardStatus === "available" ? AppIcon : AddIcon} alt="" />{" "}
         {cardStatus === "available" ? "Browse DApps" : "Add more GHO"}

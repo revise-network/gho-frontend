@@ -1,20 +1,28 @@
 import styled from "styled-components";
 import { GRADIENT_TEXT_COLOR_GREEN } from "src/assets/variables/variables";
 
-export const PopUpWrapper = styled.div`
-  position: absolute;
+export const Wrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #00000078;
+  position: fixed;
   z-index: 10;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, 10px);
+  inset: 0;
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(3px);
+  width: 100vw;
+  height: 100vh;
+`;
 
+export const PopUpWrapper = styled.div`
   border-radius: 23px;
   border: 1px solid #303435;
   background: #191b1d;
   box-shadow: 0px 0px 4px 1px rgba(0, 0, 0, 0.3);
   max-width: 492px;
   padding: 70px 29px 24px;
-  //   position: relative;
+  scale: 0.8;
   text-align: center;
 
   p {

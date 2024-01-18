@@ -9,10 +9,10 @@ export const Wrapper = styled.div`
   position: fixed;
   z-index: 10;
   inset: 0;
-
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(3px);
   width: 100vw;
   height: 100vh;
-  // transform: translate(-50%, 10px);
 `;
 
 export const PopUpWrapper = styled.div`
