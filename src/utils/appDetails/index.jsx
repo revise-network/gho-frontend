@@ -11,18 +11,19 @@ import {
 import AppImage from "src/assets/images/app-image.svg";
 import AddIcon from "src/assets/images/add.svg";
 
-const AppDetails = ({ appStatus, handelPopUp }) => {
+const AppDetails = ({ appData, handelPopUp }) => {
+  const appStatus = appData.claimed
   return (
     <StylesAppDetailsWrapper>
       <StylesAppImage>
-        <img src={AppImage} alt="app-image" />
+        <img src={appData.logo ? appData.logo : AppImage} alt="app-image" />
       </StylesAppImage>
-      <StylesAppName>DApp Name</StylesAppName>
+      <StylesAppName>{appData.name}</StylesAppName>
       <StylesAppStatus>
         <div>
-          {appStatus === "claimed" ? (
+          {appStatus ? (
             <div>
-              <StylesGreenText>10 Matic</StylesGreenText>
+              <StylesGreenText>{appData.claimedAmount}{appData.tokenName}</StylesGreenText>
               Claimed
             </div>
           ) : (

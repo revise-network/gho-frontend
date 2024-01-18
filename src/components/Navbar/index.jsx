@@ -30,6 +30,7 @@ export const Navbar = () => {
       window.localStorage.clear();
       console.error(`failed to connect..`, err);
     }
+    window.location.reload()
   };
   const disconnectWallet = async (event) => {
     event.preventDefault();

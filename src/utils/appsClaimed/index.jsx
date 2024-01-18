@@ -9,7 +9,15 @@ import Header from "src/components/Navbar";
 const AppsClaimed = () => {
   const appStatus = "claimed";
 
-  const ArrayLength = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 0];
+  // const sampleApp = {
+  //   logo: null,
+  //   name: "Uniswap",
+  //   claimed: true,
+  //   claimedAmount: 10,
+  //   tokenName: 'Matic'
+  // }
+
+  const claimedApps = [];
   return (
     <StylesAppsClaimedWrapper>
       <StylesHeader>
@@ -17,13 +25,14 @@ const AppsClaimed = () => {
       </StylesHeader>
 
       <StylesClaimedDetails>
-        {ArrayLength.map((app, uniqueApp) => {
+        {claimedApps.map((app, uniqueApp) => {
           return (
             <div key={uniqueApp} style={{ marginBottom: "7px" }}>
-              <AppDetails app={app} appStatus={appStatus} />
+              <AppDetails app={app} appData={app} />
             </div>
           );
         })}
+        {claimedApps.length === 0 ? "No Credit taken yet..": ""}
       </StylesClaimedDetails>
     </StylesAppsClaimedWrapper>
   );

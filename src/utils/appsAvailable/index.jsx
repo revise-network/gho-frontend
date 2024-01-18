@@ -11,7 +11,50 @@ import { StylesAvailableApps } from "src/utils/appsAvailable/styles";
 const AppsAvailable = ({ handelPopUp }) => {
   const appStatus = "unclaimed";
 
-  const ArrayLength = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 11];
+  const availableApps = [
+    {
+      logo: null,
+      name: "Uniswap",
+      claimed: false,
+      claimedAmount: 10,
+      tokenName: 'Matic'
+    },
+    {
+      logo: null,
+      name: "DyDx",
+      claimed: false,
+      claimedAmount: 10,
+      tokenName: 'Matic'
+    },
+    {
+      logo: null,
+      name: "Lens",
+      claimed: false,
+      claimedAmount: 10,
+      tokenName: 'Matic'
+    },
+    {
+      logo: null,
+      name: "LensPost",
+      claimed: false,
+      claimedAmount: 10,
+      tokenName: 'Matic'
+    },
+    {
+      logo: null,
+      name: "Aavegotchi",
+      claimed: false,
+      claimedAmount: 10,
+      tokenName: 'Matic'
+    },
+    {
+      logo: null,
+      name: "Axie infinity",
+      claimed: false,
+      claimedAmount: 10,
+      tokenName: 'Matic'
+    },
+  ]
   return (
     <StylesAppsClaimedWrapper height="600px">
       <StylesHeader>
@@ -19,12 +62,11 @@ const AppsAvailable = ({ handelPopUp }) => {
       </StylesHeader>
 
       <StylesAvailableApps>
-        {ArrayLength.map((app, uniqueItem) => {
+        {availableApps.map((app, uniqueItem) => {
           return (
             <div key={uniqueItem}>
               <AppDetails
-                app={app}
-                appStatus={appStatus}
+                appData={app}
                 handelPopUp={handelPopUp}
               />
             </div>
