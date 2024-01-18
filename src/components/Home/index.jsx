@@ -24,20 +24,15 @@ const Home = () => {
   const handleStakeGHOPopup = () => {
     setStakeGHOPopup(!stakeGHOPopup);
   };
-  const onBlur = () => {
-    if (popUp) {
-      setPopUp(!popUp);
-    }
-  };
+  // const onBlur = () => {
+  //   if (popUp) {
+  //     setPopUp(!popUp);
+  //   }
+  // };
 
   return (
     <>
-      <HomeWrapper
-        opacity={popUp ? "0.5" : ""}
-        onClick={() => {
-          onBlur();
-        }}
-      >
+      <HomeWrapper>
         <StylesSectionWrapper>
           <Navbar />
         </StylesSectionWrapper>
@@ -55,7 +50,7 @@ const Home = () => {
           </>
         )}
       </HomeWrapper>
-      {popUp && <PopUp popRef={parentRef} />}
+      {popUp && <PopUp popRef={parentRef} popUp={popUp} setPopUp={setPopUp} />}
       {stakeGHOPopup && <StakeGHOPopup popRef={parentRef} />}
     </>
   );
