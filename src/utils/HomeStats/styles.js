@@ -137,38 +137,30 @@ export const StylesClaimDetailsWrapper = styled.div`
     margin: 10px 0;
   }
 
-  section {
+  & > span {
     position: relative;
-    margin: 20px 0;
-    text-align: center;
-    progress {
-      position: absolute;
-      transform: translate(-50%, -50%);
-      width: 300%;
-      margin-bottom: 3px;
+    width: 80%;
+    background-color: ${BACKGROUND_COLOR_BLACK_3};
+    border: 2px solid ${BORDER_COLOR_GREY_2};
+    border-radius: 13px;
+    height: 23px;
+    margin: 15px 0;
+
+    .claimed_section {
+      display: block;
       border-radius: 13px;
-      height: 23px;
-      background-color: ${BACKGROUND_COLOR_BLACK_3};
-      border: 2px solid ${BORDER_COLOR_GREY_2};
-    }
-    progress::-webkit-progress-bar {
-      border-radius: 13px;
-      background-color: ${BACKGROUND_COLOR_BLACK_3};
-    }
-    progress::-webkit-progress-value {
-      background: ${GRADIENT_TEXT_COLOR_GREEN};
-      border-radius: 13px;
-    }
-    progress::-moz-progress-bar {
-      /* style rules */
-      border-radius: 13px;
-      background-color: ${BACKGROUND_COLOR_BLACK_3};
+      width: ${(props) => props.width};
+      background: red;
+      height: 19px;
+      margin-bottom: 5px;
     }
 
     span {
+      display: block;
       color: ${TEXT_COLOR_GREY};
       font-size: 16px;
       font-weight: 500;
+      text-align: center;
     }
   }
 
