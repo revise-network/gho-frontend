@@ -33,14 +33,14 @@ const HomeStats = () => {
 
 export default HomeStats;
 
-export const Stats = ({ cardStatus }) => {
+export const Stats = ({ cardStatus, creditAvaiable = 0, totalStaked = 0 }) => {
   return (
     <StylesStatsWrapper
       border_radius={cardStatus !== "available" && "0px 23px 23px 0px"}
     >
-      <p>{cardStatus === "available" ? "AVAILABLE" : "TOTAL STAKED"}</p>
-      <h1>1000</h1>
-      <p>GHO</p>
+      <p>{cardStatus === "available" ? "CREDIT AVAILABLE" : "TOTAL STAKED"}</p>
+      <h1>{cardStatus === "available" ? creditAvaiable : totalStaked}</h1>
+      {cardStatus === "available" ? (<p>$</p>) : (<p>GHO</p>)}
       <div>
         {" "}
         <img src={cardStatus === "available" ? AppIcon : AddIcon} alt="" />{" "}
@@ -63,31 +63,35 @@ export const Stats = ({ cardStatus }) => {
   );
 };
 
-export const ClaimedDetails = () => {
+export const ClaimedDetails = ({totalClaimed = 0, totalClaimedPercentage = 0, dueDate = null}) => {
   return (
     <StylesClaimDetailsWrapper>
       <p>CLAIMED</p>
-      <h1>2000</h1>
+      <h1>{totalClaimed}</h1>
       <p>GHO</p>
       <section>
         <progress value="56" max="100"></progress>
         <br />
-        <span>56% Claimed </span>
+        <span>{totalClaimedPercentage}% Claimed </span>
       </section>
-      <div>
-        <p>
-          Payback before <br />{" "}
-          <span>
-            <img src={TimeReminder} alt="" /> 3 Days 20 Hours
-          </span>{" "}
-          <br />
-          To avoid penalties
-        </p>
-        <div>
-          <img src={TimeIcon} alt="" />
-          Payback Now
-        </div>
-      </div>
+      {
+        !dueDate ? "" : (
+          <div>
+            <p>
+              Payback before <br />{" "}
+              <span>
+                <img src={TimeReminder} alt="" /> 3 Days 20 Hours
+              </span>{" "}
+              <br />
+              To avoid penalties
+            </p>
+            <div>
+              <img src={TimeIcon} alt="" />
+              Payback Now
+            </div>
+          </div>
+        )
+      }
     </StylesClaimDetailsWrapper>
   );
 };
