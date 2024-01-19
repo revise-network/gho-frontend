@@ -1,4 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { ethers, Contract, formatUnits, parseUnits   } from "ethers";
+
 import {
   Button,
   PopUpContainer,
@@ -6,26 +8,95 @@ import {
   CommonWrapper,
   ProgressBarContainer,
   FirstSegment,
-  SecondSegment,
+  // SecondSegment,
   ThirdSegment,
   CheckboxLabel,
   CustomCheckbox,
   Warning,
   Wrapper
-} from "./styles";
+} from "./styles"
+import {abi as stakingAbi} from '../../assets/abi/staking'
+import {STAKING_CONTRACT} from '../../assets/addresses'
 
-// import { GRADIENT_TEXT_COLOR_GREEN } from "src/assets/variables/variables";
+// import { GRADIENT_TEXT_COLOR_GREEN } from "src/assets/variables/variables"
 
-import warningIcon from "src/assets/images/warning.svg";
+import warningIcon from "src/assets/images/warning.svg"
 
-const PopUp = ({ popRef, setPopUp }) => {
-  const [isChecked, setIsChecked] = useState(false);
-  const [warning, setWarning] = useState(false);
+const PopUp = ({ popRef, setPopUp, appData }) => {
+  const [isChecked, setIsChecked] = useState(false)
+  const [warning, setWarning] = useState(false)
+  const [borrowAmount, setBorrowAmount] = useState(0)
+  const [ghoEstimate, setGhoEstimate] = useState("0.0")
+  const [availableCredit, setAvaiableCredit] = useState("0")
+  const [totalStaked, setTotalStaked] = useState("0")
+  const [btnText, setBtnText] = useState("CLAIM NOW")
 
+  useEffect(() => {
+    readUsersData()
+  }, [])
+
+  async function readUsersData() {
+    const provider = new ethers.BrowserProvider(window.ethereum)
+    const signer = await provider.getSigner();
+    const contract = new Contract(STAKING_CONTRACT, stakingAbi, provider)
+    const availableCreditRaw = await contract.checkAvailableCredit(signer.address)
+    const totalStakedRaw = await contract.checkStakedAmount(signer.address)
+    setAvaiableCredit(formatUnits(availableCreditRaw, 18))
+    setTotalStaked(formatUnits(totalStakedRaw, 18))
+  }
   const handleCheckboxChange = () => {
     setIsChecked(!isChecked);
     setWarning(false);
   };
+  function updateRequiredTokenAmount(e) {
+    e.preventDefault()
+    const x = (e.target.value * appData.rate)
+    if (x > parseFloat(availableCredit)) {
+      alert("You don't have sufficient credit limit")
+      return
+    }
+    setGhoEstimate(x.toString())
+    setBorrowAmount(e.target.value)
+  }
+  function calculateClaimMetadata() {
+    const metadata = {}
+    metadata.percentageClaimed = ((parseFloat(totalStaked) - parseFloat(availableCredit))) / parseFloat(totalStaked) * 100
+    metadata.percentageStaked = 100
+    metadata.percentageRemaining = metadata.percentageStaked - metadata.percentageClaimed
+    metadata.percentageClaimedWithBorrow = ((borrowAmount*appData.rate) + (parseFloat(totalStaked) - parseFloat(availableCredit))) / parseFloat(totalStaked) * 100
+    return metadata
+  }
+  async function startClaimingProcess() {
+    if (! isChecked) {
+      alert("Please check the terms and conditions")
+      return
+    }
+    setBtnText("Waiting for signature..")
+    // take gho spend approval
+    const provider = new ethers.BrowserProvider(window.ethereum)
+    const signer = await provider.getSigner();
+    let contract = new Contract(STAKING_CONTRACT, stakingAbi, signer)
+    console.log("amount: ", (borrowAmount*appData.rate));
+    const amount = parseUnits((borrowAmount*appData.rate).toString(), 18)
+    console.log("parsedamount: ", parseUnits((borrowAmount*appData.rate).toString(), 18));
+    try {
+      const tx = await contract.claimTokens(appData.tokenName, amount)
+      setBtnText("Waiting for confirmation..")
+      await tx.wait()
+      alert("Credit added successfully")
+      let claimedApps = localStorage.getItem("claimedApps")
+      if (!claimedApps) claimedApps = []
+      else claimedApps = JSON.parse(claimedApps)
+      claimedApps.unshift({...appData, claimed: true, claimedAmount: borrowAmount})
+      localStorage.setItem('claimedApps', JSON.stringify(claimedApps))
+      window.location.reload()
+    } catch (error) {
+      console.log(error)
+      setBtnText("CLAIM NOW")
+      alert("Tx rejected by you")
+      return
+    }
+  }
   return (
     <Wrapper
       onClick={() => {
@@ -34,35 +105,40 @@ const PopUp = ({ popRef, setPopUp }) => {
     >
       <PopUpWrapper
         onClick={(e) => {
-          e.stopPropagation();
+          e.stopPropagation()
         }}
         ref={popRef}
       >
         <div className="profile"></div>
-        <h3>DApp Name</h3>
+        <h3>{appData.name}</h3>
         <p style={{ fontWeight: "500", marginTop: "14px" }}>
-          DApp name supports MATIC token
+          {appData.name} needs {appData.tokenName} token
         </p>
         <PopUpContainer $warning={warning ? "#979797" : ""}>
           <div className="wrapper">
-            <p>You’ll get</p>
-            <h3>11.8022 MATIC</h3>
+            <p>How much {appData.tokenName} do you want?</p>
+            <input
+              onChange={updateRequiredTokenAmount}
+              style={{ marginTop: "10px", marginBottom: "10px" }}
+              type="number"
+              value={borrowAmount}
+            />
             <p>
-              Worth <span>10 GHO</span>
+              Worth <span>{ghoEstimate} GHO</span>
             </p>
           </div>
           <div className="wrapper">
             <p>Your credit limit will be affected</p>
             <ProgressBarContainer>
-              <FirstSegment />
-              <SecondSegment />
+              <FirstSegment width={calculateClaimMetadata().percentageClaimedWithBorrow + "%"} />
+              {/* <SecondSegment /> */}
               <ThirdSegment />
             </ProgressBarContainer>
             <CommonWrapper $justifyContent="space-between">
-              <p className="creditLimit claimed">56% Claimed</p>
-              <p className="creditLimit added">25% Added</p>
+              <p className="creditLimit claimed">{calculateClaimMetadata().percentageClaimedWithBorrow}% Claimed</p>
+              {/* <p className="creditLimit added">25% Added</p> */}
               <p className="creditLimit remaining">
-                {warning && <img src={warningIcon} />}19% Remaining
+                {warning && <img src={warningIcon} />}{calculateClaimMetadata().percentageRemaining}% Remaining
               </p>
             </CommonWrapper>
           </div>
@@ -87,7 +163,7 @@ const PopUp = ({ popRef, setPopUp }) => {
           </Warning>
         )}
 
-        <Button>{!warning ? "CLAIM NOW" : "STAKE GHO"}</Button>
+        <Button onClick={startClaimingProcess}>{btnText}</Button>
       </PopUpWrapper>
     </Wrapper>
   );

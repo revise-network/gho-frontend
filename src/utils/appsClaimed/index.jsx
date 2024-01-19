@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   StylesAppsClaimedWrapper,
   StylesClaimedDetails,
@@ -8,6 +8,14 @@ import AppDetails from "src/utils/appDetails";
 import Header from "src/components/Navbar";
 const AppsClaimed = () => {
   const appStatus = "claimed";
+  const [claimedApps, setClaimedApps] = useState([])
+
+  useEffect(() => {
+    let claimedApps = localStorage.getItem('claimedApps')
+    if (! claimedApps) claimedApps = []
+    else claimedApps = JSON.parse(claimedApps)
+    setClaimedApps(claimedApps)
+  }, [])
 
   // const sampleApp = {
   //   logo: null,
@@ -17,7 +25,6 @@ const AppsClaimed = () => {
   //   tokenName: 'Matic'
   // }
 
-  const claimedApps = [];
   return (
     <StylesAppsClaimedWrapper>
       <StylesHeader>

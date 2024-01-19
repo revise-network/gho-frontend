@@ -10,6 +10,7 @@ const Home = () => {
   const [popUp, setPopUp] = useState(false);
   const [stakeGHOPopup, setStakeGHOPopup] = useState(false);
   const [walletConnected, setWalletConnected] = useState(false);
+  const [appData, setAppData] = useState({});
   const parentRef = useRef();
 
   useEffect(() => {
@@ -51,12 +52,12 @@ const Home = () => {
               <AppsClaimed />
             </StylesSectionWrapper>
             <StylesSectionWrapper ref={dAppsAvailableSection}>
-              <AppsAvailable handelPopUp={handlePopUp} />
+              <AppsAvailable setAppData={setAppData} handelPopUp={handlePopUp} />
             </StylesSectionWrapper>
           </>
         )}
       </HomeWrapper>
-      {popUp && <PopUp popRef={parentRef} popUp={popUp} setPopUp={setPopUp} />}
+      {popUp && <PopUp popRef={parentRef} appData={appData} popUp={popUp} setPopUp={setPopUp} />}
       {stakeGHOPopup && (
         <StakeGHOPopup popRef={parentRef} setStakeGHOPopup={setStakeGHOPopup} />
       )}

@@ -147,7 +147,7 @@ export const ProgressBarSegment = styled.div`
 export const FirstSegment = styled(ProgressBarSegment)`
   border-radius: 13px 0px 0px 13px;
   background: ${GRADIENT_TEXT_COLOR_GREEN};
-  width: 56%;
+  width: ${(props) => props.width};
 `;
 
 export const SecondSegment = styled(ProgressBarSegment)`

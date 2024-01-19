@@ -8,7 +8,7 @@ import {
 } from "src/utils/appsClaimed/styles";
 import { StylesAvailableApps } from "src/utils/appsAvailable/styles";
 
-const AppsAvailable = ({ handelPopUp }) => {
+const AppsAvailable = ({ handelPopUp, setAppData }) => {
   const appStatus = "unclaimed";
 
   const availableApps = [
@@ -16,6 +16,7 @@ const AppsAvailable = ({ handelPopUp }) => {
       logo: null,
       name: "Uniswap",
       claimed: false,
+      rate: 0.01,
       claimedAmount: 10,
       tokenName: 'Matic'
     },
@@ -23,6 +24,7 @@ const AppsAvailable = ({ handelPopUp }) => {
       logo: null,
       name: "DyDx",
       claimed: false,
+      rate: 0.01,
       claimedAmount: 10,
       tokenName: 'Matic'
     },
@@ -30,6 +32,7 @@ const AppsAvailable = ({ handelPopUp }) => {
       logo: null,
       name: "Lens",
       claimed: false,
+      rate: 0.01,
       claimedAmount: 10,
       tokenName: 'Matic'
     },
@@ -37,6 +40,7 @@ const AppsAvailable = ({ handelPopUp }) => {
       logo: null,
       name: "LensPost",
       claimed: false,
+      rate: 0.01,
       claimedAmount: 10,
       tokenName: 'Matic'
     },
@@ -44,6 +48,7 @@ const AppsAvailable = ({ handelPopUp }) => {
       logo: null,
       name: "Aavegotchi",
       claimed: false,
+      rate: 0.01,
       claimedAmount: 10,
       tokenName: 'Matic'
     },
@@ -51,6 +56,7 @@ const AppsAvailable = ({ handelPopUp }) => {
       logo: null,
       name: "Axie infinity",
       claimed: false,
+      rate: 0.01,
       claimedAmount: 10,
       tokenName: 'Matic'
     },
@@ -67,7 +73,10 @@ const AppsAvailable = ({ handelPopUp }) => {
             <div key={uniqueItem}>
               <AppDetails
                 appData={app}
-                handelPopUp={handelPopUp}
+                handelPopUp={() => {
+                  setAppData(app)
+                  handelPopUp()
+                }}
               />
             </div>
           );
