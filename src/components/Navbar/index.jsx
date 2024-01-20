@@ -27,7 +27,7 @@ export const Navbar = () => {
       setAccount(accounts?.[0]);
       window.localStorage.setItem("address", accounts?.[0]);
     } catch (err) {
-      window.localStorage.clear();
+      window.localStorage.removeItem("address");
       console.error(`failed to connect..`, err);
     }
     window.location.reload()
@@ -36,9 +36,9 @@ export const Navbar = () => {
     event.preventDefault();
     try {
       await sdk?.disconnect();
-      window.localStorage.clear();
+      window.localStorage.removeItem("address");
     } catch (err) {
-      window.localStorage.clear();
+      window.localStorage.removeItem("address");
       console.error(`failed to disconnect..`, err);
     }
     window.location.reload()
