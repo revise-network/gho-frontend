@@ -41,6 +41,7 @@ export const Navbar = () => {
       window.localStorage.clear();
       console.error(`failed to disconnect..`, err);
     }
+    window.location.reload()
   };
 
   useEffect(() => {
@@ -94,7 +95,11 @@ export const Navbar = () => {
   );
 };
 
-const Header = ({ appStatus }) => {
+const Header = ({ appStatus, setSearchParam }) => {
+  function handleSearchInput(e) {
+    // e.preventdefault()
+    setSearchParam(e.target.value)
+  }
   return (
     <StylesHeaderWrapper>
       <StylesHeaderText>
@@ -102,7 +107,7 @@ const Header = ({ appStatus }) => {
       </StylesHeaderText>
       <StylesHeaderSearchWrapper>
         <img src={SearchIcon} alt="search-icon" />
-        <input type="text" placeholder="Search" />
+        <input onKeyUp={handleSearchInput} type="text" placeholder="Search" />
       </StylesHeaderSearchWrapper>
     </StylesHeaderWrapper>
   );

@@ -122,7 +122,7 @@ export const ClaimedDetails = ({
       <p>GHO</p>
       <span className="progress_bar" >
         <span className="claimed_section"></span>
-        <span>{claimedPercentage}% Claimed </span>
+        <span>{claimedPercentage.toFixed(4)}% Claimed </span>
       </span>
 
       {!dueDate ? (

@@ -13,19 +13,24 @@ import AddIcon from "src/assets/images/add.svg";
 
 const AppDetails = ({ appData, handelPopUp }) => {
   const appStatus = appData.claimed
+  function launchDapp(app) {
+    window.open(app.url, '_blank').focus()
+  }
   return (
     <StylesAppDetailsWrapper>
       <StylesAppImage>
-        <img src={appData.logo ? appData.logo : AppImage} alt="app-image" />
+        <img style={{cursor: 'pointer'}} onClick={() => launchDapp(appData)} src={appData.logo ? appData.logo : AppImage} alt="app-image" />
       </StylesAppImage>
       <StylesAppName>{appData.name}</StylesAppName>
       <StylesAppStatus>
         <div>
           {appStatus ? (
-            <div>
-              <StylesGreenText>{appData.claimedAmount}{appData.tokenName}</StylesGreenText>
-              Claimed
-            </div>
+            <>
+              <div>
+                <StylesGreenText>{appData.claimedAmount}{appData.tokenName}</StylesGreenText>
+                Claimed
+              </div>
+            </>
           ) : (
             <StylesButton
               onClick={() => {

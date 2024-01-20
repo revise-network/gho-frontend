@@ -135,10 +135,10 @@ const PopUp = ({ popRef, setPopUp, appData }) => {
               <ThirdSegment />
             </ProgressBarContainer>
             <CommonWrapper $justifyContent="space-between">
-              <p className="creditLimit claimed">{calculateClaimMetadata().percentageClaimedWithBorrow}% Claimed</p>
+              <p className="creditLimit claimed">{calculateClaimMetadata().percentageClaimedWithBorrow.toFixed(2)}% Claimed</p>
               {/* <p className="creditLimit added">25% Added</p> */}
               <p className="creditLimit remaining">
-                {warning && <img src={warningIcon} />}{calculateClaimMetadata().percentageRemaining}% Remaining
+                {warning && <img src={warningIcon} />}{calculateClaimMetadata().percentageRemaining.toFixed(2)}% Remaining
               </p>
             </CommonWrapper>
           </div>
