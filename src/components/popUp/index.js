@@ -109,7 +109,9 @@ const PopUp = ({ popRef, setPopUp, appData }) => {
         }}
         ref={popRef}
       >
-        <div className="profile"></div>
+        <div className="profile">
+          <img style={{borderRadius: '50%'}} src={appData.logo} />
+        </div>
         <h3>{appData.name}</h3>
         <p style={{ fontWeight: "500", marginTop: "14px" }}>
           {appData.name} needs {appData.tokenName} token
